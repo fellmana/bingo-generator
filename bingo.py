@@ -1,9 +1,41 @@
+"""Generate bingocards latex files and/or pdfs"""
 import os
 import sys
 from random import shuffle as shuffle
 
 class Bingo:
+    """
+    Parameters:
+    
+    labels: [str]
+        List of str that are the contents of the grid.
+        If less than number of squares is given the grid
+        is populated with filler.
+    filler: str
+        Text added to labels if less than number of squares
+        in grid.
+    x,y: int
+        Grid dimensions
+    cellsize: float
+        The size of each individual cell/square.
+    vspace: float
+        Control the top margin of page.
+    title: str
+        title text if None is provided no title is created.
+    style: str
+        Definis style of grid
+    fontsize: str
+        key to fontsizes dict that contains font definions
+        to apply to text. 
+    bold: boolean
+        Apply bold font
+    rounded: boolean
+        Apply rounded corners to squares
+    centering: boolean
+        Apply centering of tikz picture.    
+    """
 
+    #TODO: implent more styling options 
     fontsizes = {"large":"\\large ",
                  "normal":"",
                  "huge":"\\huge "}
@@ -31,7 +63,11 @@ class Bingo:
         self.cellsize = cellsize
         self.title = title
         self.style = style
-        self.fontsize=self.fontsizes[fontsize]
+        try:
+            self.fontsize=self.fontsizes[fontsize]
+        except KeyError as err:
+            print(f"Key {err} not in dictionary of fonts, try {self.fontsizes.keys()}"); exit()
+        
         self.bold = "font=\\bf, " if bold else ""
         self.rounded = "rounded corners=10 , " if rounded else ""
         self.centering = centering
@@ -77,8 +113,12 @@ class Bingo:
 
 
     def generate_pdf(self,filename="bingo.tex"):
-        # TODO: handle errors
-        os.system(f"pdflatex {filename}")        
+        """Call on pdflatex to compile pdf
+            NOTE: requires pdflatex 
+        """
+        #TODO: implement alternative compilation options
+        #TODO: use subprocess and handle errors
+        os.system(f"pdflatex {filename}")      
 
     def permutate(self):
         shuffle(self.labels)
@@ -167,10 +207,7 @@ def interactive():
 if __name__ == "__main__":
 
     def run_in_code(): 
-        """
-        EXAMPLE: how to run in code
-        """
-        print("RUNNING example, -h or --help for commandline usage")
+        print("RUNNING EXAMPLE\n -h or --help for commandline usage")
         testlabels = ["fortran", "vim", "emacs","a",
                     "bingo","DFT","LAMMPS","b",
                     "c++","python","asdajdiawd","c",
