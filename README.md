@@ -7,6 +7,9 @@ Simple script to generate latex (.tex) files of bingocards and build them to pdf
 
 
 ## Usage
+
+Running without any commanline argument, runs what ever is in the run_in_code() function, else uses commandline arguments. 
+
 ```bash
 usage: bingo.py [-h] [--font {large,normal,huge}] [-x X] [-y Y] [-cs CELLSIZE]
                 [-vs VSPACE] [-t TITLE [TITLE ...]] [-n N] [-r] [-b] [-c]
@@ -41,5 +44,8 @@ options:
   --nopdf               Dont create pdffiles
 ```
 
-
+## example
+```bash
+python bingo.py
+```
 ![image](example.png)
