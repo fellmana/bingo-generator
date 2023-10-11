@@ -36,7 +36,8 @@ class Bingo:
     """
 
     #TODO: implent more styling options 
-    fontsizes = {"large":"\\large ",
+    fontsizes = {"footnote":"\\footnotesize ",
+                "large":"\\large ",
                  "normal":"",
                  "huge":"\\huge "}
 
@@ -51,7 +52,8 @@ class Bingo:
                  fontsize="large",
                  bold=True,
                  rounded=False,
-                 centering=True):
+                 centering=True,
+                 padding=0):
 
         self.x = x
         self.y = y
@@ -72,6 +74,7 @@ class Bingo:
         self.rounded = "rounded corners=10 , " if rounded else ""
         self.centering = centering
         self.vspace = vspace
+        self.padding = padding
 
     def generate_latex_document(self,filename="bingo.tex"):
         
@@ -103,7 +106,7 @@ class Bingo:
                 for j in range(self.y):
                     f.write(f"\\draw[{self.rounded}] ({{{i*self.cellsize}}},{{{j*self.cellsize}}}) "\
                             f"rectangle ({{{(i+1)*self.cellsize}}},{{{(j+1)*self.cellsize}}});\n")
-                    f.write(f"\\node[{self.bold}align=center]"\
+                    f.write(f"\\node[{self.bold}text width={self.cellsize-self.padding}cm, align=center]"\
                             f"at ({{{(i+0.5)*self.cellsize}}},"\
                             f"{{{(j+0.5)*self.cellsize}}}) {{{self.fontsize + self.labels[n]}}};\n")
                     n += 1
@@ -140,7 +143,7 @@ def parse_args():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("i",nargs='?',default=None)
-    parser.add_argument("--font",type = str.lower, choices=["large","normal","huge"],default="large",
+    parser.add_argument("--font",type = str.lower, choices=["footnote","large","normal","huge"],default="large",
                         help="Define fontsize of text")
     parser.add_argument("-x",type=int,default=3,
                         help="Grid size in x")
@@ -170,6 +173,8 @@ def parse_args():
                         help="Dont save .tex files")
     parser.add_argument("--nopdf",action="store_true",default=False,
                         help="Dont create pdffiles")
+    parser.add_argument("-p",type=float,default=0,
+                        help="Cell text padding")
     args = parser.parse_args()
     
     return args
@@ -184,7 +189,7 @@ def make_bingo(args):
                  cellsize=args.cellsize,title=args.title,
                  style=args.style,fontsize=args.font,bold=args.bold,
                  rounded=args.rounded,centering=args.centering,
-                 vspace=args.vspace)     
+                 vspace=args.vspace, padding=args.p)     
     
     store_log = not args.nosave
     store_tex = not args.nosave
