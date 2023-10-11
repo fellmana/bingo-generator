@@ -57,7 +57,7 @@ class Bingo:
             if self.title != None:
                 f.write(f"\\title{{{self.title}}}\n")
                 f.write("\\date{}\n")
-                f.write("\\author\n")
+                f.write("\\author{}\n")
                 f.write("\\maketitle\n")
             if self.centering:
                 f.write("\\centering\n")
