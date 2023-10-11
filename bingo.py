@@ -33,6 +33,8 @@ class Bingo:
         Apply rounded corners to squares
     centering: boolean
         Apply centering of tikz picture.    
+    padding: float
+        Apply padding in the cells
     """
 
     #TODO: implent more styling options 
@@ -53,7 +55,7 @@ class Bingo:
                  bold=True,
                  rounded=False,
                  centering=True,
-                 padding=0):
+                 padding=0.0):
 
         self.x = x
         self.y = y
@@ -203,10 +205,6 @@ def make_bingo(args):
         bingo.generate_latex_document(filename=args.fn)
         if not args.nopdf:
             bingo.generate_pdf()
-
-def interactive():
-    pass
-
 
 
 if __name__ == "__main__":
