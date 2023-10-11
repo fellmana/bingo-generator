@@ -7,7 +7,7 @@ Simple script to generate latex (.tex) files of bingocards and build them to pdf
 
 
 ## Usage
-´´´
+```bash
 usage: bingo.py [-h] [--font {large,normal,huge}] [-x X] [-y Y] [-cs CELLSIZE]
                 [-vs VSPACE] [-t TITLE [TITLE ...]] [-n N] [-r] [-b] [-c]
                 [-s STYLE] [-f FILLER] [-fn FN] [--nosave] [--nopdf]
@@ -39,6 +39,7 @@ options:
   -fn FN                filename of .tex file
   --nosave              Dont save .tex files
   --nopdf               Dont create pdffiles
-  ´´´
+```
+
 
 ![image](example.png)
